@@ -10,7 +10,7 @@ var FileAPI = {
 var UserAvatar = {
     config: {
         fileapi: {
-            accept: 'image/!*',
+            accept: 'image/*',
             imageSize: {
                 minWidth: 200, minHeight: 200
             },

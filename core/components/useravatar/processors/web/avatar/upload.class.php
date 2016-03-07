@@ -184,9 +184,10 @@ class modWebUserAvatarUploadProcessor extends modObjectUpdateProcessor
 
         $cacheManager = $this->modx->getCacheManager();
         /* does not exist */
-        if (!file_exists($avatarPath) OR !is_dir($avatarPath)) {
-            if (!$cacheManager->writeTree($avatarPath)) {
-                $this->modx->log(xPDO::LOG_LEVEL_ERROR, "[UserAvatar] Could not create directory: " . $avatarPath);
+        if (!file_exists(MODX_ASSETS_PATH . $avatarPath) OR !is_dir(MODX_ASSETS_PATH . $avatarPath)) {
+            if (!$cacheManager->writeTree(MODX_ASSETS_PATH . $avatarPath)) {
+                $this->modx->log(xPDO::LOG_LEVEL_ERROR,
+                    "[UserAvatar] Could not create directory: " . MODX_ASSETS_PATH . $avatarPath);
 
                 return false;
             }

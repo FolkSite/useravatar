@@ -1,4 +1,4 @@
-<div id='[[+propkey]]' class='user-avatar' data-avatar='[[+photo]]'>
+<div id='[[+propkey]]' class='user-avatar' data-avatar='[[+photo]]' data-accept='.jpg,.png'>
     <div class='js-preview user-avatar-preview'>
     </div>
     <div class='js-fileapi-wrapper user-avatar-btn btn btn-info'>

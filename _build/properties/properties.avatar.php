@@ -11,10 +11,10 @@ $tmp = array(
         'type'  => 'textfield',
         'value' => 'ua.noauth',
     ),
-    'source' => array(
+   /* 'source' => array(
         'type'  => 'numberfield',
         'value' => 0,
-    ),
+    ),*/
     'objectName'    => array(
         'type'  => 'textfield',
         'value' => 'UserAvatar',
@@ -28,10 +28,7 @@ $tmp = array(
         'type'  => 'textfield',
         'value' => '[[+assetsUrl]]js/web/default.js',
     ),
-    'jqueryJs'      => array(
-        'type'  => 'textfield',
-        'value' => '[[+assetsUrl]]vendor/jquery/dist/jquery.min.js',
-    ),
+
     'actionUrl'     => array(
         'type'  => 'textfield',
         'value' => '[[+assetsUrl]]action.php',
