@@ -33,11 +33,6 @@ $fileapi = $scriptProperties['fileapi'] = strpos($fileapi, '{') === 0
     ? $modx->fromJSON($fileapi)
     : array();
 
-$dropzone = trim($modx->getOption('dropzone', $scriptProperties, '{}'));
-$dropzone = $scriptProperties['dropzone'] = strpos($dropzone, '{') === 0
-    ? $modx->fromJSON($dropzone)
-    : array();
-
 $propkey = $scriptProperties['propkey'] = $modx->getOption('propkey', $scriptProperties,
     sha1(serialize($scriptProperties)), true);
 

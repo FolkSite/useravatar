@@ -323,7 +323,7 @@ class UserAvatar
             'assetsBaseUrl' => str_replace($pls['pl'], $pls['vl'], $opts['assetsBaseUrl']),
             'assetsUrl'     => str_replace($pls['pl'], $pls['vl'], $opts['assetsUrl']),
             'actionUrl'     => str_replace($pls['pl'], $pls['vl'], $opts['actionUrl']),
-            'dropzone'      => $opts['dropzone'],
+            'fileapi'       => (array)$opts['fileapi'],
             'propkey'       => "{$this->config['propkey']}",
             'ctx'           => "{$this->modx->context->get('key')}"
         ));

@@ -4,7 +4,7 @@
     <div class='js-fileapi-wrapper user-avatar-btn btn btn-info'>
         <div class='user-avatar-upload-link'>
             <span class='user-avatar-btn-text'>select avatar</span>
-            <input class='user-avatar-input' type='file' name='file' accept='.jpg,.jpeg,.gif'>
+            <input class='user-avatar-input' type='file' name='file'>
         </div>
         <div class='user-avatar-upload-progress' style='display: none;'>
             <div class='progress progress-success'><div class='user-avatar-upload-progress-bar bar'></div></div>

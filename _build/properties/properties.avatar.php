@@ -42,11 +42,7 @@ $tmp = array(
     ),
     'fileapi' => array(
         'type'  => 'textarea',
-        'value' => '{"template":"base"}',
-    ),
-    'dropzone' => array(
-        'type'  => 'textarea',
-        'value' => '{"template":"base"}',
+        'value' => '{"accept":"image/*"}',
     ),
 
 );
