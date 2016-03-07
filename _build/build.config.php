@@ -40,5 +40,5 @@ define('BUILD_SNIPPET_STATIC', false);
 
 $BUILD_RESOLVERS = array(
     'chunks',
-    //'vendors',
+    'vendors',
 );

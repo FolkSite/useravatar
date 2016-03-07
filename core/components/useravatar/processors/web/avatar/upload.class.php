@@ -179,7 +179,7 @@ class modWebUserAvatarUploadProcessor extends modObjectUpdateProcessor
         $avatarThumbnail = (array)$this->modx->getOption('avatarThumbnail', $this->properties, array(), true);
         $avatarThumbnail = array_merge($this->avatarThumbnail, $avatarThumbnail);
 
-        $avatarPath = trim($this->modx->getOption('avatarPath', $this->properties, 'avatar/images', true));
+        $avatarPath = trim($this->modx->getOption('avatarPath', $this->properties, 'useravatar/images', true));
         $avatarPath = rtrim($avatarPath, '/') . '/';
 
         $cacheManager = $this->modx->getCacheManager();
