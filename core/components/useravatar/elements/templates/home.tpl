@@ -1,0 +1,1 @@
+<div id="useravatar-panel-home-div"></div>
