@@ -24,34 +24,16 @@
     position: relative;
 }
 
-.user-avatar-btn.progress {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: .5;
-    position: absolute;
-}
-.progress .bar {
-    width: 0;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    position: absolute;
-    background-color: #f60;
-}
-
-
-
-
 .user-avatar .user-avatar-btn{
     margin-top: 150px;
 }
 
 .user-avatar-preview {
     position: absolute;
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
 }
-
 
 .user-avatar-btn{
     cursor: pointer;
@@ -63,35 +45,4 @@
     vertical-align: middle;
     width: 150px;
     margin-left: 25px;
-}
-
-
-.user-avatar .user-avatar-btn{
-    margin-top: 150px;
-}
-
-.user-avatar-preview {
-    position: absolute;
-}
-
-
-.popup {
-    margin: 25px;
-    float: left;
-    display: inline-block;
-    box-shadow: 0 0 5px #000;
-    background-color: #fff;
-    overflow: hidden;
-}
-.popup__body {
-    margin: 10px 10px 5px;
-}
-
-.themodal-overlay {
-    display: flex;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-.user-avatar-popup.popup {
-    margin: auto;
 }

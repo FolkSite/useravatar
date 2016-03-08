@@ -1,119 +1,187 @@
 /*
- * v 1.0.0
+ * v 1.0.3
  */
 
-var FileAPI = {
-    debug: false,
-    staticPath: UserAvatarConfig.assetsUrl + 'vendor/fileapi/FileAPI/'
+var UserAvatarModal = {
+
+    get: function(name) {
+        var template = [];
+        var all = {
+            base: [
+                '<div class="user-avatar-img-container">',
+                '<img class="user-avatar-upload-img" src="" alt="">',
+                '</div>',
+                '<div style="margin:20px 0 0 0; text-align: center;">',
+                '<div class="user-avatar-upload-btn btn btn-info">upload</div>',
+                '</div>'
+            ]
+        };
+
+        if (all[name]) {
+            template = all[name];
+        }
+
+        return template.join('');
+    }
+
 };
+
 
 var UserAvatar = {
     config: {
-        fileapi: {
-            accept: 'image/*',
-            imageSize: {
-                minWidth: 200, minHeight: 200
-            },
-            elements: {
-                active: {show: '.user-avatar-upload-progress', hide: '.user-avatar-upload-link'},
-                preview: {
-                    el: '.user-avatar-preview',
-                    width: 200,
-                    height: 200
-                },
-                progress: '.user-avatar-upload-progress'
-            },
-            maxSize: FileAPI.MB*10
 
-        }
     },
 
     initialize: function (opts) {
         var config = $.extend(true, {}, this.config, opts);
 
-        if (!$.fileapi) {
-            document.writeln('<script src="' + config.assetsBaseUrl + 'components/useravatar/vendor/fileapi/FileAPI/FileAPI.min.js"><\/script>');
-            document.writeln('<script src="' + config.assetsBaseUrl + 'components/useravatar/vendor/fileapi/FileAPI/FileAPI.exif.js"><\/script>');
-            document.writeln('<script src="' + config.assetsBaseUrl + 'components/useravatar/vendor/fileapi/jquery.fileapi.min.js"><\/script>');
+        if (!jQuery.cropper) {
+            document.writeln('<style data-compiled-css>@import url(' + config.assetsBaseUrl + 'components/useravatar/vendor/cropper/dist/cropper.min.css); </style>');
+            document.writeln('<script src="' + config.assetsBaseUrl + 'components/useravatar/vendor/cropper/dist/cropper.min.js"><\/script>');
         }
 
-        if (!$.Jcrop) {
-            document.writeln('<style data-compiled-css>@import url(' + config.assetsBaseUrl + 'components/useravatar/vendor/jcrop/css/jquery.Jcrop.min.css); </style>');
-            document.writeln('<script src="' + config.assetsBaseUrl + 'components/useravatar/vendor/jcrop/js/jquery.Jcrop.min.js"><\/script>');
+        if (!jQuery().colorbox) {
+            document.writeln('<style data-compiled-css>@import url(' + config.assetsBaseUrl + 'components/useravatar/vendor/colorbox/example1/colorbox.css); </style>');
+            document.writeln('<script src="' + config.assetsBaseUrl + 'components/useravatar/vendor/colorbox/jquery.colorbox-min.js"><\/script>');
         }
 
-        if (!$.modal) {
-            document.writeln('<style data-compiled-css>@import url(' + config.assetsBaseUrl + 'components/useravatar/vendor/modal/the-modal.css); </style>');
-            document.writeln('<script src="' + config.assetsBaseUrl + 'components/useravatar/vendor/modal/jquery.the-modal.js"><\/script>');
+        if (!jQuery().toBlob) {
+            document.writeln('<script src="' + config.assetsBaseUrl + 'components/useravatar/vendor/canvastoblob/js/canvas-to-blob.min.js"><\/script>');
         }
+
+        $(document).on('click', '.user-avatar-upload-btn', function() {
+
+            var $image = $('.user-avatar-upload-img');
+            var data = $image.cropper('getData');
+
+            if (!data) {
+                return;
+            }
+
+            $image.cropper('getCroppedCanvas', data).toBlob(function (file) {
+
+                var formData = new FormData();
+
+                formData.append('file', file, 'avatar.jpg');
+                formData.append('action', 'avatar/upload');
+                formData.append('data', JSON.stringify(data));
+                formData.append('propkey', config.propkey);
+                formData.append('ctx', config.ctx);
+
+                $.ajax({
+                    url: config.actionUrl,
+                    dataType: 'json',
+                    delay: 200,
+                    type: 'POST',
+                    cache: false,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $.colorbox.close();
+                    }
+                });
+            },'image/jpeg');
+
+            return false;
+        });
 
         $(document).ready(function () {
-            var avatar = [];
 
             $('#' + config.propkey).each(function () {
                 if (!this.id) {
                     console.log('[UserAvatar:Error] Initialization Error. Id required');
                     return;
                 }
-
                 var $this = $(this);
-                var fileApiConfig = $.extend({}, config.fileapi, $(this).data());
+                var $inputAvatar = $this.find('input[name="file"]');
 
-                fileApiConfig.url = config.actionUrl;
-                fileApiConfig.files = [{
-                    src: fileApiConfig.avatar,
-                }];
+                var URL = window.URL || window.webkitURL;
+                var blobURL;
 
-                fileApiConfig.data = {
-                    action: 'avatar/upload',
-                    propkey: config.propkey,
-                    ctx: config.ctx
-                };
+                if (!URL) {
+                    $inputAvatar.prop('disabled', true).parent().addClass('disabled');
+                    return;
+                }
 
-                fileApiConfig.onSelect=  function (evt, ui){
-                    var file = ui.files[0];
-                    if( !FileAPI.support.transform ) {
-                        alert('Your browser does not support Flash :(');
+                $inputAvatar.change(function () {
+                    var files = this.files;
+                    var file;
+
+                    if (!$.colorbox) {
+                        return;
                     }
-                    else if( file ){
-                        $('.user-avatar-popup').modal({
-                            closeOnEsc: true,
-                            closeOnOverlayClick: false,
-                            onOpen: function (overlay){
-                                $(overlay).on('click', '.user-avatar-upload-btn', function (){
-                                    $.modal().close();
-                                    $this.fileapi('upload');
-                                });
-                                $('.user-avatar-upload-img', overlay).cropper({
-                                    file: file,
-                                    bgColor: '#fff',
-                                    maxSize: [$(window).width()-100, $(window).height()-100],
-                                    minSize: [200, 200],
-                                    selection: '90%',
-                                    onSelect: function (coords){
-                                        $this.fileapi('crop', file, coords);
+
+                    if (files && files.length) {
+                        file = files[0];
+
+                        if (/^image\/\w+$/.test(file.type)) {
+
+                            $.colorbox({
+                                html: UserAvatarModal.get('base'),
+                                closeButton: false,
+                                transition:'none',
+                                scrolling: false,
+
+                                onComplete:function(){
+
+                                    var $image = $('.user-avatar-upload-img');
+
+                                    $image.cropper('destroy');
+                                    $image.on({
+                                        'build.cropper': function (e) {
+                                            $('.user-avatar-img-container').css({
+                                                'width':  $(window).width() / 3,
+                                                'height': $(window).height() / 2
+                                            });
+                                        },
+                                        'built.cropper': function (e) {
+                                            parent.$.fn.colorbox.resize({
+                                                innerWidth: $(window).width() /3
+                                            });
+                                        }
+                                    }).cropper({
+                                        aspectRatio: 1,
+                                        preview: '.user-avatar-preview',
+                                        crop: function (e) {
+
+                                        },
+                                        minCropBoxWidth:200,
+                                        minCropBoxHeight:200,
+                                    });
+
+                                    if (!$image.data('cropper')) {
+                                        return;
                                     }
-                                });
-                            }
-                        }).open();
+
+                                    blobURL = URL.createObjectURL(file);
+                                    $image.one('built.cropper', function () {
+                                        URL.revokeObjectURL(blobURL);
+                                    }).cropper('reset').cropper('replace', blobURL);
+                                    $inputAvatar.val('');
+
+                                },
+
+                                onCleanup:function(){
+
+                                },
+                                onClosed:function(){
+
+                                }
+                            });
+
+                        } else {
+                            window.alert('Please choose an image file.');
+                        }
                     }
-
-                };
-
-                avatar.push(function (){
-                    $this.fileapi(fileApiConfig);
                 });
 
-            });
 
-            FileAPI.each(avatar, function (fn){
-                fn();
             });
 
         });
 
     },
-
 
 };
 

@@ -18,26 +18,26 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 
         $vendors = array(
             array(
-                'fileapi',
-                MODX_ASSETS_PATH . 'components/useravatar/vendor/',
-                'https://github.com/RubaXa/jquery.fileapi/archive/master.zip'
+                'colorbox',
+                'https://github.com/jackmoore/colorbox/archive/master.zip',
+                MODX_ASSETS_PATH . 'components/useravatar/vendor/'
             ),
             array(
-                'modal',
-                MODX_ASSETS_PATH . 'components/useravatar/vendor/',
-                'https://github.com/samdark/the-modal/archive/master.zip'
+                'cropper',
+                'https://github.com/fengyuanchen/cropper/archive/master.zip',
+                MODX_ASSETS_PATH . 'components/useravatar/vendor/'
             ),
             array(
-                'jcrop',
-                MODX_ASSETS_PATH . 'components/useravatar/vendor/',
-                'https://github.com/tapmodo/Jcrop/archive/master.zip'
+                'canvastoblob',
+                'https://github.com/blueimp/JavaScript-Canvas-to-Blob/archive/master.zip',
+                MODX_ASSETS_PATH . 'components/useravatar/vendor/'
             )
 
         );
 
 
         foreach ($vendors as $vendor) {
-            list($name, $path, $url) = $vendor;
+            list($name, $url, $path) = $vendor;
             $tmp = $name . '.zip';
 
             /* does not exist */

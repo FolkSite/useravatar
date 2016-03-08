@@ -121,7 +121,7 @@ class UserAvatar
                 break;
             default:
                 if (!defined('MODX_API_MODE') OR !MODX_API_MODE) {
-                    $config = $this->modx->toJSON(array(
+                    /*$config = $this->modx->toJSON(array(
                         'assetsUrl'     => $this->config['assetsUrl'],
                         'assetsBaseUrl' => $this->config['assetsBaseUrl']
                     ));
@@ -129,7 +129,7 @@ class UserAvatar
                     $script = "<script type=\"text/javascript\">UserAvatarConfig={$config}</script>";
                     if (!isset($this->modx->jscripts[$script])) {
                         $this->modx->regClientStartupScript($script, true);
-                    }
+                    }*/
                     $this->initialized[$ctx] = true;
                 }
                 break;
@@ -323,7 +323,6 @@ class UserAvatar
             'assetsBaseUrl' => str_replace($pls['pl'], $pls['vl'], $opts['assetsBaseUrl']),
             'assetsUrl'     => str_replace($pls['pl'], $pls['vl'], $opts['assetsUrl']),
             'actionUrl'     => str_replace($pls['pl'], $pls['vl'], $opts['actionUrl']),
-            'fileapi'       => (array)$opts['fileapi'],
             'propkey'       => "{$this->config['propkey']}",
             'ctx'           => "{$this->modx->context->get('key')}"
         ));
