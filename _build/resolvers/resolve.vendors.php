@@ -18,16 +18,25 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 
         $vendors = array(
             array(
+                'bs3modal',
+                'bs3modal',
+                'https://github.com/vgrish/bootstrap-modal/archive/master.zip',
+                MODX_ASSETS_PATH . 'components/useravatar/vendor/'
+            ),
+            array(
+                'bs3dialog',
                 'bs3dialog',
                 'https://github.com/nakupanda/bootstrap3-dialog/archive/master.zip',
                 MODX_ASSETS_PATH . 'components/useravatar/vendor/'
             ),
             array(
                 'cropper',
+                'cropper',
                 'https://github.com/fengyuanchen/cropper/archive/master.zip',
                 MODX_ASSETS_PATH . 'components/useravatar/vendor/'
             ),
             array(
+                'canvastoblob',
                 'canvastoblob',
                 'https://github.com/blueimp/JavaScript-Canvas-to-Blob/archive/master.zip',
                 MODX_ASSETS_PATH . 'components/useravatar/vendor/'
@@ -35,9 +44,8 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 
         );
 
-
         foreach ($vendors as $vendor) {
-            list($name, $url, $path) = $vendor;
+            list($name, $rename, $url, $path) = $vendor;
             $tmp = $name . '.zip';
 
             /* does not exist */
@@ -61,15 +69,17 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 unlink($path . $tmp);
                 file_put_contents($path . '.' . $name, date('Y-m-d H:i:s'));
 
-                $dirname = rtrim($files[0]['filename'], '/');
-                /* rename dir */
-                $ddir = explode('/', $dirname);
-                $rdir = array_pop($ddir);
-                $separated = implode('/', $ddir);
-                $ndir = $separated . '/' . $name;
-                if ($dirname != $ndir) {
-                    if (!rename($dirname, $ndir)) {
-                        $modx->log(xPDO::LOG_LEVEL_INFO, "Could not rename <b>{$ndir}</b>");
+                if (!empty($rename)) {
+                    $dirname = rtrim($files[0]['filename'], '/');
+                    /* rename dir */
+                    $ddir = explode('/', $dirname);
+                    $rdir = array_pop($ddir);
+                    $separated = implode('/', $ddir);
+                    $ndir = $separated . '/' . $rename;
+                    if ($dirname != $ndir) {
+                        if (!rename($dirname, $ndir)) {
+                            $modx->log(xPDO::LOG_LEVEL_INFO, "Could not rename <b>{$ndir}</b>");
+                        }
                     }
                 }
 
@@ -80,6 +90,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             }
 
         }
+
 
         break;
 
