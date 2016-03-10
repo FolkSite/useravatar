@@ -21,16 +21,14 @@ $tplAuth = $scriptProperties['tplAuth'] = $UserAvatar->getOption('tplAuth', $scr
 $tplNoAuth = $scriptProperties['tplNoAuth'] = $UserAvatar->getOption('tplNoAuth', $scriptProperties, 'ua.noauth', true);
 
 $user = $scriptProperties['user'] = $UserAvatar->getOption('user', $scriptProperties, $modx->user->id, true);
-$source = $scriptProperties['source'] = $UserAvatar->getOption('source', $scriptProperties,
-    $UserAvatar->getOption('source_default', null, 1, true), true);
 
 $objectName = $scriptProperties['objectName'] = $UserAvatar->getOption('objectName', $scriptProperties,
     'UserAvatar',
     true);
 
-$fileapi = trim($modx->getOption('fileapi', $scriptProperties, '{}'));
-$fileapi = $scriptProperties['fileapi'] = strpos($fileapi, '{') === 0
-    ? $modx->fromJSON($fileapi)
+$thumbnail = trim($modx->getOption('thumbnail', $scriptProperties, '{}'));
+$thumbnail = $scriptProperties['thumbnail'] = strpos($thumbnail, '{') === 0
+    ? $modx->fromJSON($thumbnail)
     : array();
 
 $propkey = $scriptProperties['propkey'] = $modx->getOption('propkey', $scriptProperties,

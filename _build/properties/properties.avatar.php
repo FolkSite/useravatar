@@ -37,10 +37,10 @@ $tmp = array(
         'type'  => 'textfield',
         'value' => ''
     ),
-   /* 'fileapi' => array(
+    'thumbnail' => array(
         'type'  => 'textarea',
-        'value' => '{"accept":"image/*"}',
-    ),*/
+        'value' => '{"w":200,"h":200,"q":90,"zc":"1","bg":"fff"}',
+    ),
 
 );
 

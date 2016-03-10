@@ -13,7 +13,7 @@ class modWebUserAvatarUploadProcessor extends modObjectUpdateProcessor
     /** @var UserAvatar $UserAvatar */
     public $UserAvatar;
     /** @var array $imageThumbnail */
-    public $avatarThumbnail = array(
+    public $thumbnail = array(
         'w'  => 200,
         'h'  => 200,
         'q'  => 90,
@@ -176,10 +176,10 @@ class modWebUserAvatarUploadProcessor extends modObjectUpdateProcessor
         $name = $this->modx->getOption('hash', $this->data, session_id(), true);
         $type = $this->modx->getOption('type', $this->data, '', true);
 
-        $avatarThumbnail = (array)$this->modx->getOption('avatarThumbnail', $this->properties, array(), true);
-        $avatarThumbnail = array_merge($this->avatarThumbnail, $avatarThumbnail);
+        $thumbnail = (array)$this->modx->getOption('thumbnail', $this->properties, array(), true);
+        $thumbnail = array_merge($this->thumbnail, $thumbnail);
 
-        $avatarPath = trim($this->modx->getOption('avatarPath', $this->properties, 'useravatar/images', true));
+        $avatarPath = trim($this->modx->getOption('path', $this->properties, 'useravatar/images', true));
         $avatarPath = rtrim($avatarPath, '/') . '/';
 
         $cacheManager = $this->modx->getCacheManager();
@@ -239,7 +239,7 @@ class modWebUserAvatarUploadProcessor extends modObjectUpdateProcessor
         $phpThumb->setCacheDirectory();
 
         $phpThumb->setSourceFilename($tmp);
-        foreach ($avatarThumbnail as $k => $v) {
+        foreach ($thumbnail as $k => $v) {
             $phpThumb->setParameter($k, $v);
         }
         if ($phpThumb->GenerateThumbnail()) {

@@ -9,5 +9,5 @@ $_lang['useravatar_prop_frontendJs'] = 'Файл с javascript для подкл
 
 $_lang['useravatar_prop_actionUrl'] = 'Коннектор для обработки ajax запросов.';
 $_lang['useravatar_prop_toPlaceholder'] = 'Если указан этот параметр, то результат будет сохранен в плейсхолдер, вместо прямого вывода на странице.';
-$_lang['useravatar_prop_fileapi'] = 'Закодированный в JSON массив с параметрами "fileapi"';
+$_lang['useravatar_prop_thumbnail'] = 'Закодированный в JSON массив с параметрами "PhpThumb"';
 

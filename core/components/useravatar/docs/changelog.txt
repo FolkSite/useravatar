@@ -1,5 +1,9 @@
 Changelog for UserAvatar.
 
+1.0.5-beta (10.03.2016)
+==============
+- Small fix
+
 1.0.4-beta (10.03.2016)
 ==============
 - Add bootstrap-modal

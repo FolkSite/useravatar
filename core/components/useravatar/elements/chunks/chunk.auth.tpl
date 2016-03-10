@@ -1,6 +1,6 @@
 <div id='[[+propkey]]' class='user-avatar'>
     <div class='user-avatar-preview'>
-        <img src='[[+photo]]'>
+        <img src='[[+photo:default=`https://placeholdit.imgix.net/~text?txtsize=22&txt=200x200&w=200&h=200`]]'>
     </div>
     <div class='user-avatar-btn btn btn-info'>
         <div class='user-avatar-upload-link'>
