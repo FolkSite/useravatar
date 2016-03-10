@@ -18,8 +18,8 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 
         $vendors = array(
             array(
-                'colorbox',
-                'https://github.com/jackmoore/colorbox/archive/master.zip',
+                'bs3dialog',
+                'https://github.com/nakupanda/bootstrap3-dialog/archive/master.zip',
                 MODX_ASSETS_PATH . 'components/useravatar/vendor/'
             ),
             array(
