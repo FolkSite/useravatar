@@ -17,7 +17,6 @@ class modWebUserAvatarUploadProcessor extends modObjectUpdateProcessor
         'w'  => 200,
         'h'  => 200,
         'q'  => 90,
-        'zc' => 1,
         'bg' => 'fff',
         'f'  => 'jpg'
     );
@@ -172,12 +171,13 @@ class modWebUserAvatarUploadProcessor extends modObjectUpdateProcessor
             return $this->UserAvatar->lexicon('err_file_ns');
         }
 
+        $thumbnail = (array)$this->modx->getOption('thumbnail', $this->properties, array(), true);
+        $thumbnail = array_merge($this->thumbnail, $thumbnail);
+
         $tmp = $this->modx->getOption('tmp_name', $this->data, '', true);
         $name = $this->modx->getOption('hash', $this->data, session_id(), true);
         $type = $this->modx->getOption('type', $this->data, '', true);
-
-        $thumbnail = (array)$this->modx->getOption('thumbnail', $this->properties, array(), true);
-        $thumbnail = array_merge($this->thumbnail, $thumbnail);
+        $type = $this->modx->getOption('f', $thumbnail, $type, true);
 
         $avatarPath = trim($this->modx->getOption('path', $this->properties, 'useravatar/images', true));
         $avatarPath = rtrim($avatarPath, '/') . '/';
@@ -242,6 +242,7 @@ class modWebUserAvatarUploadProcessor extends modObjectUpdateProcessor
         foreach ($thumbnail as $k => $v) {
             $phpThumb->setParameter($k, $v);
         }
+
         if ($phpThumb->GenerateThumbnail()) {
             if ($phpThumb->renderToFile($path)) {
                 $this->setProperty('photo', $url);

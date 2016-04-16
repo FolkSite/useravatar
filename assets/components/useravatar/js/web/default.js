@@ -140,7 +140,7 @@ var UserAvatar = {
 
                 var formData = new FormData();
 
-                formData.append('file', file, 'avatar.jpg');
+                formData.append('file', file, 'avatar.png');
                 formData.append('action', 'avatar/upload');
                 formData.append('data', JSON.stringify(data));
                 formData.append('propkey', config.propkey);
@@ -159,7 +159,7 @@ var UserAvatar = {
                         $('.modal.in').modal('hide');
                     }
                 });
-            },'image/jpeg');
+            }, 'image/png');
 
             return false;
         });

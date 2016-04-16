@@ -5,21 +5,21 @@ $settings = array();
 $tmp = array(
     //временные
 
-   /* 'assets_path' => array(
-        'value' => '{base_path}useravatar/assets/components/useravatar/',
-        'xtype' => 'textfield',
-        'area'  => 'useravatar_temp',
-    ),
-    'assets_url'  => array(
-        'value' => '/useravatar/assets/components/useravatar/',
-        'xtype' => 'textfield',
-        'area'  => 'useravatar_temp',
-    ),
-    'core_path'   => array(
-        'value' => '{base_path}useravatar/core/components/useravatar/',
-        'xtype' => 'textfield',
-        'area'  => 'useravatar_temp',
-    ),*/
+    /* 'assets_path' => array(
+         'value' => '{base_path}useravatar/assets/components/useravatar/',
+         'xtype' => 'textfield',
+         'area'  => 'useravatar_temp',
+     ),
+     'assets_url'  => array(
+         'value' => '/useravatar/assets/components/useravatar/',
+         'xtype' => 'textfield',
+         'area'  => 'useravatar_temp',
+     ),
+     'core_path'   => array(
+         'value' => '{base_path}useravatar/core/components/useravatar/',
+         'xtype' => 'textfield',
+         'area'  => 'useravatar_temp',
+     ),*/
 
     //временные
 

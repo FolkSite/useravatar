@@ -3,28 +3,28 @@
 $properties = array();
 
 $tmp = array(
-    'tplAuth' => array(
+    'tplAuth'    => array(
         'type'  => 'textfield',
         'value' => 'ua.auth',
     ),
-    'tplNoAuth' => array(
+    'tplNoAuth'  => array(
         'type'  => 'textfield',
         'value' => 'ua.noauth',
     ),
-   /* 'source' => array(
-        'type'  => 'numberfield',
-        'value' => 0,
-    ),*/
-    'objectName'    => array(
+    /* 'source' => array(
+         'type'  => 'numberfield',
+         'value' => 0,
+     ),*/
+    'objectName' => array(
         'type'  => 'textfield',
         'value' => 'UserAvatar',
     ),
 
-    'frontendCss'   => array(
+    'frontendCss' => array(
         'type'  => 'textfield',
         'value' => '[[+assetsUrl]]css/web/default.css',
     ),
-    'frontendJs'    => array(
+    'frontendJs'  => array(
         'type'  => 'textfield',
         'value' => '[[+assetsUrl]]js/web/default.js',
     ),
@@ -37,7 +37,7 @@ $tmp = array(
         'type'  => 'textfield',
         'value' => ''
     ),
-    'thumbnail' => array(
+    'thumbnail'     => array(
         'type'  => 'textarea',
         'value' => '{"w":200,"h":200,"q":90,"zc":"1","bg":"fff"}',
     ),
