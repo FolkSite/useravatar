@@ -1,5 +1,9 @@
 Changelog for UserAvatar.
 
+1.0.8-beta (18.05.2016)
+==============
+- Remove getting "mime" image
+
 1.0.7-beta (16.04.2016)
 ==============
 - Fix loading "avatar"

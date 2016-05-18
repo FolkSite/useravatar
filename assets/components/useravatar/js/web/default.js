@@ -140,7 +140,7 @@ var UserAvatar = {
 
                 var formData = new FormData();
 
-                formData.append('file', file, 'avatar.png');
+                formData.append('file', file, 'avatar.png');  
                 formData.append('action', 'avatar/upload');
                 formData.append('data', JSON.stringify(data));
                 formData.append('propkey', config.propkey);
