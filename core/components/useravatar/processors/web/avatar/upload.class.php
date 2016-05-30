@@ -85,7 +85,6 @@ class modWebUserAvatarUploadProcessor extends modObjectUpdateProcessor
         $name = $_FILES['file']['name'];
 
         $size = @filesize($tnm);
-        $mime = @finfo_file(finfo_open(FILEINFO_MIME_TYPE), $tnm);
 
         $tim = getimagesize($tnm);
         $width = $height = 0;
@@ -102,7 +101,6 @@ class modWebUserAvatarUploadProcessor extends modObjectUpdateProcessor
         $this->data = array(
             'tmp_name'   => $tnm,
             'size'       => $size,
-            'mime'       => $mime,
             'type'       => $type,
             'name'       => $name,
             'width'      => $width,
