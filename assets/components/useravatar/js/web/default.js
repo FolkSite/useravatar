@@ -1,5 +1,5 @@
 /*
- * v 1.0.3
+ * v 1.0.8
  */
 
 var UserAvatarModal = {
@@ -35,21 +35,23 @@ var UserAvatar = {
     initialize: function (opts) {
         var config = $.extend(true, {}, this.config, opts);
 
-        if (!jQuery.cropper) {
+        var canvas = HTMLCanvasElement && HTMLCanvasElement.prototype;
+
+        if (!jQuery().cropper) {
             document.writeln('<style data-compiled-css>@import url(' + config.assetsBaseUrl + 'components/useravatar/vendor/cropper/dist/cropper.min.css); </style>');
             document.writeln('<script src="' + config.assetsBaseUrl + 'components/useravatar/vendor/cropper/dist/cropper.min.js"><\/script>');
         }
 
-        if (!jQuery().toBlob) {
+        if (!canvas.toBlob) {
             document.writeln('<script src="' + config.assetsBaseUrl + 'components/useravatar/vendor/canvastoblob/js/canvas-to-blob.min.js"><\/script>');
         }
 
-        if (!jQuery.Modal) {
+        if (!jQuery().modal) {
             document.writeln('<style data-compiled-css>@import url(' + config.assetsBaseUrl + 'components/useravatar/vendor/bs3modal/dist/css/bootstrap-modal.css); </style>');
             document.writeln('<script src="' + config.assetsBaseUrl + 'components/useravatar/vendor/bs3modal/dist/js/bootstrap-modal.js"><\/script>');
         }
 
-        if (!jQuery.BootstrapDialogModal) {
+        if (!jQuery().dialog) {
             document.writeln('<style data-compiled-css>@import url(' + config.assetsBaseUrl + 'components/useravatar/vendor/bs3dialog/dist/css/bootstrap-dialog.min.css); </style>');
             document.writeln('<script src="' + config.assetsBaseUrl + 'components/useravatar/vendor/bs3dialog/dist/js/bootstrap-dialog.min.js"><\/script>');
         }
@@ -140,7 +142,7 @@ var UserAvatar = {
 
                 var formData = new FormData();
 
-                formData.append('file', file, 'avatar.png');
+                formData.append('file', file, 'avatar.png');  
                 formData.append('action', 'avatar/upload');
                 formData.append('data', JSON.stringify(data));
                 formData.append('propkey', config.propkey);
