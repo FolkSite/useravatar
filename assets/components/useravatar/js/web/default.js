@@ -1,5 +1,5 @@
 /*
- * v 1.0.8
+ * v 1.0.10
  */
 
 var UserAvatarModal = {
@@ -13,6 +13,14 @@ var UserAvatarModal = {
                 '</div>',
                 '<div style="margin:15px 0 0 0; text-align: center;">',
                 '<button class="user-avatar-upload-btn btn btn-info">upload</button>',
+                '</div>'
+            ],
+            base2: [
+                '<div class="user-avatar-img-container">',
+                '<img class="user-avatar-upload-img" src="" alt="">',
+                '</div>',
+                '<div style="margin:15px 0 0 0; text-align: center;">',
+                '<button class="user-avatar-upload-btn btn btn-info">upload2</button>',
                 '</div>'
             ]
         };
@@ -64,6 +72,8 @@ var UserAvatar = {
                     return;
                 }
                 var $this = $(this);
+                var UserAvatarConfig = $.extend({}, config, $this.data());
+
                 var $inputAvatar = $this.find('input[name="file"]');
 
                 var URL = window.URL || window.webkitURL;
@@ -85,7 +95,7 @@ var UserAvatar = {
 
                             BootstrapDialog.show({
                                 title: null,
-                                message: UserAvatarModal.get('base'),
+                                message: UserAvatarModal.get(UserAvatarConfig.template || 'base'),
                                 onshown: function(dialogRef){
                                     var $image = $('.user-avatar-upload-img');
 

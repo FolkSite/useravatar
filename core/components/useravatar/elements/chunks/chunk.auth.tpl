@@ -1,4 +1,4 @@
-<div id='[[+propkey]]' class='user-avatar'>
+<div id='[[+propkey]]' class='user-avatar' data-template='base'>
     <div class='user-avatar-preview'>
         <img src='[[+photo:default=`https://placeholdit.imgix.net/~text?txtsize=22&txt=200x200&w=200&h=200`]]'>
     </div>
