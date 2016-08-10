@@ -55,7 +55,7 @@ class modWebUserAvatarUploadProcessor extends modObjectUpdateProcessor
         }
 
         $primaryKey = $this->getProperty($this->primaryKeyField, $this->modx->user->id);
-        if (!$this->object = $this->modx->getObject($this->classKey, $primaryKey)) {
+        if (!$this->object = $this->modx->getObject($this->classKey, array($this->primaryKeyField => $primaryKey))) {
             return $this->modx->lexicon($this->objectType . '_err_nfs',
                 array($this->primaryKeyField => $primaryKey));
         }

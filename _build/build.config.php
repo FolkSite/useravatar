@@ -4,7 +4,7 @@
 define('PKG_NAME', 'UserAvatar');
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 
-define('PKG_VERSION', '1.0.10');
+define('PKG_VERSION', '1.1.0');
 define('PKG_RELEASE', 'beta');
 define('PKG_AUTO_INSTALL', true);
 define('PKG_NAMESPACE_PATH', '{core_path}components/' . PKG_NAME_LOWER . '/');
@@ -22,7 +22,7 @@ define('MODX_MANAGER_PATH', MODX_BASE_PATH . 'manager/');
 define('MODX_CONNECTORS_PATH', MODX_BASE_PATH . 'connectors/');
 define('MODX_ASSETS_PATH', MODX_BASE_PATH . 'assets/');
 
-/* define urls */
+/* define urls */ 
 define('MODX_BASE_URL', '/');
 define('MODX_CORE_URL', MODX_BASE_URL . 'core/');
 define('MODX_MANAGER_URL', MODX_BASE_URL . 'manager/');
