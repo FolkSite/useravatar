@@ -46,3 +46,36 @@
     width: 150px;
     margin-left: 25px;
 }
+
+
+.user-avatar-progress {
+    position: relative;
+    top: 50%;
+    z-index: 999;
+}
+.user-avatar-upload {
+    display: block;
+    position: absolute;
+    height: 25px;
+    width: 0;
+    background: #5bc0de;
+    text-align: center;
+    line-height: 25px;
+
+    -webkit-transition: width 300ms ease-in-out;
+    -moz-transition: width 300ms ease-in-out;
+    -ms-transition: width 300ms ease-in-out;
+    -o-transition: width 300ms ease-in-out;
+    transition: width 300ms ease-in-out;
+}
+
+.user-avatar-upload[data-user-avatar-upload="10"] { width: 10%; }
+.user-avatar-upload[data-user-avatar-upload="20"] { width: 20%; }
+.user-avatar-upload[data-user-avatar-upload="30"] { width: 30%; }
+.user-avatar-upload[data-user-avatar-upload="40"] { width: 40%; }
+.user-avatar-upload[data-user-avatar-upload="50"] { width: 50%; }
+.user-avatar-upload[data-user-avatar-upload="60"] { width: 60%; }
+.user-avatar-upload[data-user-avatar-upload="70"] { width: 70%; }
+.user-avatar-upload[data-user-avatar-upload="80"] { width: 80%; }
+.user-avatar-upload[data-user-avatar-upload="90"] { width: 90%; }
+.user-avatar-upload[data-user-avatar-upload="100"] { width: 100%; }
