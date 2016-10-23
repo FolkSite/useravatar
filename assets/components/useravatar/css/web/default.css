@@ -69,6 +69,10 @@
     transition: width 300ms ease-in-out;
 }
 
+.user-avatar-img-container {
+    max-height: 400px;
+}
+
 .user-avatar-upload[data-user-avatar-upload="10"] { width: 10%; }
 .user-avatar-upload[data-user-avatar-upload="20"] { width: 20%; }
 .user-avatar-upload[data-user-avatar-upload="30"] { width: 30%; }
