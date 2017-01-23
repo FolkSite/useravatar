@@ -1,18 +1,32 @@
 /*
- * v 1.0.8
+ * v 1.1.2
  */
 
 var UserAvatarModal = {
 
-    get: function(name) {
+    get: function(name, config) {
         var template = [];
         var all = {
             base: [
+                '<div class="user-avatar-wrapper">',
                 '<div class="user-avatar-img-container">',
+                '<div class="user-avatar-progress"><span class="user-avatar-upload" data-user-avatar-upload></span></div>',
                 '<img class="user-avatar-upload-img" src="" alt="">',
                 '</div>',
                 '<div style="margin:15px 0 0 0; text-align: center;">',
-                '<button class="user-avatar-upload-btn btn btn-info">upload</button>',
+                '<button class="user-avatar-upload-btn btn btn-info">{upload_file}</button>',
+                '</div>',
+                '</div>'
+            ],
+            base2: [
+                '<div class="user-avatar-wrapper">',
+                '<div class="user-avatar-img-container">',
+                '<div class="user-avatar-progress"><span class="user-avatar-upload" data-user-avatar-upload></span></div>',
+                '<img class="user-avatar-upload-img" src="" alt="">',
+                '</div>',
+                '<div style="margin:15px 0 0 0; text-align: center;">',
+                '<button class="user-avatar-upload-btn btn btn-info">{upload_file}</button>',
+                '</div>',
                 '</div>'
             ]
         };
@@ -20,8 +34,14 @@ var UserAvatarModal = {
         if (all[name]) {
             template = all[name];
         }
+        template = template.join('');
 
-        return template.join('');
+        var UserAvatarLexicon = config.lexicon || {};
+        for (var key in UserAvatarLexicon) {
+            template = template.replace(new RegExp('{' + key + '}', "g"), UserAvatarLexicon[key]);
+        }
+
+        return template;
     }
 
 };
@@ -64,6 +84,8 @@ var UserAvatar = {
                     return;
                 }
                 var $this = $(this);
+                var UserAvatarConfig = $.extend({}, config, $this.data());
+
                 var $inputAvatar = $this.find('input[name="file"]');
 
                 var URL = window.URL || window.webkitURL;
@@ -85,7 +107,7 @@ var UserAvatar = {
 
                             BootstrapDialog.show({
                                 title: null,
-                                message: UserAvatarModal.get('base'),
+                                message: UserAvatarModal.get(UserAvatarConfig.template || 'base', UserAvatarConfig),
                                 onshown: function(dialogRef){
                                     var $image = $('.user-avatar-upload-img');
 
@@ -131,18 +153,23 @@ var UserAvatar = {
 
         $(document).on('click', '.user-avatar-upload-btn', function() {
 
-            var $image = $('.user-avatar-upload-img');
+            var $this = $(this);
+            var $wrapper = $this.closest('.user-avatar-wrapper');
+            var $image = $wrapper.find('.user-avatar-upload-img');
+            var $upload = $wrapper.find('.user-avatar-upload');
             var data = $image.cropper('getData');
 
             if (!data) {
                 return;
             }
 
+            $this.attr('disabled', true);
+
             $image.cropper('getCroppedCanvas', data).toBlob(function (file) {
 
                 var formData = new FormData();
 
-                formData.append('file', file, 'avatar.png');  
+                formData.append('file', file, 'avatar.png');
                 formData.append('action', 'avatar/upload');
                 formData.append('data', JSON.stringify(data));
                 formData.append('propkey', config.propkey);
@@ -157,6 +184,21 @@ var UserAvatar = {
                     data: formData,
                     processData: false,
                     contentType: false,
+                    xhr: function(){
+                        var xhr = $.ajaxSettings.xhr();
+                        xhr.upload.addEventListener('progress', function(evt){
+                            if(evt.lengthComputable) {
+                                var progress = Math.ceil(evt.loaded / evt.total * 100);
+                                if ($upload) {
+                                    $upload
+                                        .attr('data-user-avatar-upload', progress)
+                                        .data('user-avatar-upload', progress)
+                                        .html(progress + "%");
+                                }
+                            }
+                        }, false);
+                        return xhr;
+                    },
                     success: function(response) {
                         $('.modal.in').modal('hide');
                     }

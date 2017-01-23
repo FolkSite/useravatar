@@ -309,6 +309,8 @@ class UserAvatar
      */
     public function loadJsCss(array $opts = array())
     {
+        $this->modx->lexicon->load('useravatar:default');
+
         $opts = array_merge($this->config, $opts);
         $pls = $this->makePlaceholders($opts);
 
@@ -319,13 +321,14 @@ class UserAvatar
             $this->modx->regClientCSS(str_replace($pls['pl'], $pls['vl'], $opts['frontendCss']));
         }
 
-        $config = $this->modx->toJSON(array(
+        $config = json_encode(array(
             'assetsBaseUrl' => str_replace($pls['pl'], $pls['vl'], $opts['assetsBaseUrl']),
             'assetsUrl'     => str_replace($pls['pl'], $pls['vl'], $opts['assetsUrl']),
             'actionUrl'     => str_replace($pls['pl'], $pls['vl'], $opts['actionUrl']),
-            'propkey'       => "{$this->config['propkey']}",
-            'ctx'           => "{$this->modx->context->get('key')}"
-        ));
+            'propkey'       => $this->config['propkey'],
+            'ctx'           => $this->modx->context->get('key'),
+            'lexicon'       => $this->modx->lexicon->fetch('useravatar_msg_', true)
+        ), true);
         $this->modx->regClientScript(preg_replace($this->config['replacePattern'], '', '
 			<script type="text/javascript">
 				' . trim($opts['objectName']) . '.initialize(' . $config . ');

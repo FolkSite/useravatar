@@ -19,20 +19,11 @@ if (!$UserAvatar) {
 
 $tplAuth = $scriptProperties['tplAuth'] = $UserAvatar->getOption('tplAuth', $scriptProperties, 'ua.auth', true);
 $tplNoAuth = $scriptProperties['tplNoAuth'] = $UserAvatar->getOption('tplNoAuth', $scriptProperties, 'ua.noauth', true);
-
 $user = $scriptProperties['user'] = $UserAvatar->getOption('user', $scriptProperties, $modx->user->id, true);
+$objectName = $scriptProperties['objectName'] = $UserAvatar->getOption('objectName', $scriptProperties, 'UserAvatar', true);
+$thumbnail = $scriptProperties['thumbnail'] = (array)json_decode($modx->getOption('thumbnail', $scriptProperties, '{}'), true);
 
-$objectName = $scriptProperties['objectName'] = $UserAvatar->getOption('objectName', $scriptProperties,
-    'UserAvatar',
-    true);
-
-$thumbnail = trim($modx->getOption('thumbnail', $scriptProperties, '{}'));
-$thumbnail = $scriptProperties['thumbnail'] = strpos($thumbnail, '{') === 0
-    ? $modx->fromJSON($thumbnail)
-    : array();
-
-$propkey = $scriptProperties['propkey'] = $modx->getOption('propkey', $scriptProperties,
-    sha1(serialize($scriptProperties)), true);
+$propkey = $scriptProperties['propkey'] = $modx->getOption('propkey', $scriptProperties, sha1(serialize($scriptProperties)), true);
 
 $UserAvatar->initialize($modx->context->key, $scriptProperties);
 $UserAvatar->saveProperties($scriptProperties);
