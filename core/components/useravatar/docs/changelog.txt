@@ -2,7 +2,7 @@ Changelog for UserAvatar.
 
 1.1.2-beta (23.01.2017)
 ==============
-- Add "lexicon" 
+- Add "lexicon"
 
 1.1.1-beta (20.10.2016)
 ==============
