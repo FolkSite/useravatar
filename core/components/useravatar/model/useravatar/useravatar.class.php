@@ -17,7 +17,7 @@ class UserAvatar
     public $Tools;
 
     /**
-     * @param modX  $modx
+     * @param modX $modx
      * @param array $config
      */
     function __construct(modX &$modx, array $config = array())
@@ -67,7 +67,7 @@ class UserAvatar
     /**
      * @param       $key
      * @param array $config
-     * @param null  $default
+     * @param null $default
      *
      * @return mixed|null
      */
@@ -77,9 +77,9 @@ class UserAvatar
         if (!empty($key) AND is_string($key)) {
             if ($config != null AND array_key_exists($key, $config)) {
                 $option = $config[$key];
-            } elseif (array_key_exists($key, $this->config)) {
+            } else if (array_key_exists($key, $this->config)) {
                 $option = $this->config[$key];
-            } elseif (array_key_exists("{$this->namespace}_{$key}", $this->modx->config)) {
+            } else if (array_key_exists("{$this->namespace}_{$key}", $this->modx->config)) {
                 $option = $this->modx->getOption("{$this->namespace}_{$key}");
             }
         }
@@ -94,7 +94,7 @@ class UserAvatar
      * @param       $n
      * @param array $p
      */
-    public function __call($n, array$p)
+    public function __call($n, array $p)
     {
         echo __METHOD__ . ' says: ' . $n;
     }
@@ -103,14 +103,13 @@ class UserAvatar
      * Initializes component into different contexts.
      *
      * @param string $ctx The context to load. Defaults to web.
-     * @param array  $scriptProperties
+     * @param array $scriptProperties
      *
      * @return boolean
      */
     public function initialize($ctx = 'web', $scriptProperties = array())
     {
         $this->config = array_merge($this->config, $scriptProperties, array('ctx' => $ctx));
-        $this->modx->error->reset();
 
         if (!empty($this->initialized[$ctx])) {
             return true;
@@ -168,6 +167,7 @@ class UserAvatar
         $array = array_map('trim', $array);       // Trim array's values
         $array = array_keys(array_flip($array));  // Remove duplicate fields
         $array = array_filter($array);            // Remove empty values from array
+
         return $array;
     }
 
@@ -189,8 +189,8 @@ class UserAvatar
 
     /**
      * @param string $message
-     * @param array  $data
-     * @param array  $placeholders
+     * @param array $data
+     * @param array $placeholders
      *
      * @return array|string
      */
@@ -216,7 +216,7 @@ class UserAvatar
         $key = '';
         if ($this->modx->lexicon->exists($message)) {
             $key = $message;
-        } elseif ($this->modx->lexicon->exists($this->namespace . '_' . $message)) {
+        } else if ($this->modx->lexicon->exists($this->namespace . '_' . $message)) {
             $key = $this->namespace . '_' . $message;
         }
         if ($key !== '') {
@@ -228,7 +228,7 @@ class UserAvatar
 
     /**
      * @param string $name
-     * @param array  $properties
+     * @param array $properties
      *
      * @return mixed|string
      */
@@ -236,7 +236,7 @@ class UserAvatar
     {
         if (class_exists('pdoTools') AND $pdo = $this->modx->getService('pdoTools')) {
             $output = $pdo->getChunk($name, $properties);
-        } elseif (strpos($name, '@INLINE ') !== false) {
+        } else if (strpos($name, '@INLINE ') !== false) {
             $content = str_replace('@INLINE', '', $name);
             /** @var modChunk $chunk */
             $chunk = $this->modx->newObject('modChunk', array('name' => 'inline-' . uniqid()));
@@ -251,7 +251,9 @@ class UserAvatar
 
     public function runProcessor($action = '', $data = array())
     {
-        $this->modx->error->reset();
+        if ($error = $this->modx->getService('error', 'error.modError')) {
+            $error->reset();
+        }
         $processorsPath = !empty($this->config['processorsPath']) ? $this->config['processorsPath'] : MODX_CORE_PATH;
         /* @var modProcessorResponse $response */
         $response = $this->modx->runProcessor($action, $data, array('processors_path' => $processorsPath));
@@ -279,7 +281,7 @@ class UserAvatar
         }
         if ($this->config['jsonResponse'] AND is_array($output)) {
             $output = $this->modx->toJSON($output);
-        } elseif (!$this->config['jsonResponse'] AND !is_array($output)) {
+        } else if (!$this->config['jsonResponse'] AND !is_array($output)) {
             $output = $this->modx->fromJSON($output);
         }
 
@@ -288,8 +290,8 @@ class UserAvatar
 
     /**
      * @param string $message
-     * @param array  $data
-     * @param array  $placeholders
+     * @param array $data
+     * @param array $placeholders
      *
      * @return array|string
      */
@@ -327,7 +329,7 @@ class UserAvatar
             'actionUrl'     => str_replace($pls['pl'], $pls['vl'], $opts['actionUrl']),
             'propkey'       => $this->config['propkey'],
             'ctx'           => $this->modx->context->get('key'),
-            'lexicon'       => $this->modx->lexicon->fetch('useravatar_msg_', true)
+            'lexicon'       => $this->modx->lexicon->fetch('useravatar_msg_', true),
         ), true);
         $this->modx->regClientScript(preg_replace($this->config['replacePattern'], '', '
 			<script type="text/javascript">
@@ -340,11 +342,11 @@ class UserAvatar
      * from
      * https://github.com/bezumkin/pdoTools/blob/19195925226e3f8cb0ba3c8d727567e9f3335673/core/components/pdotools/model/pdotools/pdotools.class.php#L320
      *
-     * @param array  $array
+     * @param array $array
      * @param string $plPrefix
      * @param string $prefix
      * @param string $suffix
-     * @param bool   $uncacheable
+     * @param bool $uncacheable
      *
      * @return array
      */
@@ -354,7 +356,8 @@ class UserAvatar
         $prefix = '[[+',
         $suffix = ']]',
         $uncacheable = true
-    ) {
+    )
+    {
         $result = array('pl' => array(), 'vl' => array());
         $uncachedPrefix = str_replace('[[', '[[!', $prefix);
         foreach ($array as $k => $v) {
